@@ -5,5 +5,6 @@ It uses the following stack:
 
  - **Jetpack Compose**: native Android UI toolkit.
  - **Room**: Android local database.
+ - **Dagger Hilt**: dependency injection.
  - **Retrofit**: HTTP client for Android and Java.
- - **Accompanist**: extensios for Jetpack Compose.
+ - **Accompanist**: extensions for Jetpack Compose.
