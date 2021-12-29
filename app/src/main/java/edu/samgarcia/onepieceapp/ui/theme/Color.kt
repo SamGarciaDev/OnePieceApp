@@ -1,5 +1,7 @@
 package edu.samgarcia.onepieceapp.ui.theme
 
+import androidx.compose.material.Colors
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 val Purple200 = Color(0xFFBB86FC)
@@ -15,4 +17,17 @@ val Blue200 = Color(0xFF90CAF9)
 val Blue500 = Color(0xFF2196F3)
 val Blue700 = Color(0xFF1976D2)
 
-val Black1 = Color(0xFF191919)
+val LightGrey = Color(0xFFBDBDBD)
+val DarkGrey = Color(0xFF707070)
+
+val Colors.onboardingScreenBackgroundColor
+    @Composable
+    get() = if(isLight) Color.White else Color.Black
+
+val Colors.titleColor
+    @Composable
+    get() = if (isLight) Color.Black else Color.White
+
+val Colors.descriptionColor
+    @Composable
+    get() = if (isLight) DarkGrey else LightGrey

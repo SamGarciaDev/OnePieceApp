@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">OnePieceApp</string>
     <string name="app_logo_description">App logo</string>
+    <string name="first_onboarding_page_text">Hello there!</string>
+    <string name="first_onboarding_page_desc">Are you a One Piece Fan? If so, we have great news for you!</string>
+    <string name="second_onboarding_page_title">Explore!</string>
+    <string name="second_onboarding_page_desc">Find your favorite character and learn some interesting facts about them!</string>
+    <string name="third_onboarding_page_title">Share!</string>
+    <string name="third_onboarding_page_desc">Share it with your friends!</string>
+    <string name="onboarding_image_description">Onboarding Image</string>
+    <string name="finish_btn_text">Finish</string>
 </resources>
