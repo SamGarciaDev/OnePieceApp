@@ -28,7 +28,7 @@ sealed class OnboardingPage(
     )
 
     object Third: OnboardingPage(
-        image = R.drawable.sharing,
+        image = R.drawable.chopper_happy,
         title = R.string.third_onboarding_page_title,
         description = R.string.third_onboarding_page_desc
     )

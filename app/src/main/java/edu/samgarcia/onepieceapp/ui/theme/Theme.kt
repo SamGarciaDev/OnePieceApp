@@ -7,7 +7,7 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
 private val DarkColorPalette = darkColors(
-    primary = Orange500,
+    primary = Orange300,
     primaryVariant = Orange700,
     secondary = Blue200
 )
@@ -16,26 +16,16 @@ private val LightColorPalette = lightColors(
     primary = Orange500,
     primaryVariant = Orange700,
     secondary = Blue200
-
-    /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
 )
 
 @Composable
 fun OnePieceAppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable() () -> Unit
+    isDarkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit
 ) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
+    val colors = when {
+        isDarkTheme -> DarkColorPalette
+        else -> LightColorPalette
     }
 
     MaterialTheme(

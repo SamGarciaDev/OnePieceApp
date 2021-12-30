@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
+import edu.samgarcia.onepieceapp.presentation.screens.home.HomeScreen
 import edu.samgarcia.onepieceapp.presentation.screens.onboarding.OnboardingScreen
 import edu.samgarcia.onepieceapp.presentation.screens.splash.SplashScreen
 import edu.samgarcia.onepieceapp.utils.Constants.DETAILS_ARGUMENT_KEY
@@ -18,7 +19,7 @@ import edu.samgarcia.onepieceapp.utils.Constants.DETAILS_ARGUMENT_KEY
 fun SetupNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Onboarding.route
+        startDestination = Screen.Splash.route
     ) {
         composable(route = Screen.Splash.route) {
             SplashScreen(navController)
@@ -29,7 +30,7 @@ fun SetupNavGraph(navController: NavHostController) {
         }
 
         composable(route = Screen.Home.route) {
-
+            HomeScreen()
         }
 
         composable(

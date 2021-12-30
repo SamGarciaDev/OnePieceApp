@@ -18,16 +18,21 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.pager.*
 import edu.samgarcia.onepieceapp.R
 import edu.samgarcia.onepieceapp.domain.model.OnboardingPage
+import edu.samgarcia.onepieceapp.navigation.Screen
 import edu.samgarcia.onepieceapp.ui.theme.*
 
 @ExperimentalAnimationApi
 @ExperimentalPagerApi
 @Composable
-fun OnboardingScreen(navController: NavHostController) {
+fun OnboardingScreen(
+    navController: NavHostController,
+    onboardingViewModel: OnboardingViewModel = hiltViewModel()
+) {
     val pages = listOf(
         OnboardingPage.First,
         OnboardingPage.Second,
@@ -64,7 +69,9 @@ fun OnboardingScreen(navController: NavHostController) {
             pagerState = pagerState,
             modifier = Modifier.weight(2/12f)
         ) {
-
+            navController.popBackStack()
+            navController.navigate(Screen.Home.route)
+            onboardingViewModel.saveOnboardingState(completed = true)
         }
     }
 }
@@ -143,7 +150,10 @@ fun SecondOnboardingPagePreview() {
 @Preview (showBackground = true)
 @Composable
 fun ThirdOnboardingPagePreview() {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         PagerScreen(onboardingPage = OnboardingPage.Third)
     }
 }
