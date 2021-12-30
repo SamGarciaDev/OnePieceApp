@@ -9,13 +9,11 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,7 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import edu.samgarcia.onepieceapp.R
 import edu.samgarcia.onepieceapp.navigation.Screen
-import edu.samgarcia.onepieceapp.ui.theme.DarkGrey
+import edu.samgarcia.onepieceapp.ui.theme.DarkerGrey
 import edu.samgarcia.onepieceapp.ui.theme.Orange500
 import edu.samgarcia.onepieceapp.ui.theme.Orange700
 
@@ -71,7 +69,7 @@ fun SplashScreen(
 fun Splash(degrees: Float) {
     val modifier = Modifier.run {
         when(isSystemInDarkTheme()) {
-            true -> background(color = DarkGrey)
+            true -> background(color = DarkerGrey)
             false -> background(brush = Brush.verticalGradient(listOf(Orange700, Orange500)))
         }
     }

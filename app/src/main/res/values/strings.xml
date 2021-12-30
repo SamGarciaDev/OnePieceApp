@@ -9,4 +9,5 @@
     <string name="third_onboarding_page_desc">And share it with your friends!</string>
     <string name="onboarding_image_description">Onboarding Image</string>
     <string name="finish_btn_text">Finish</string>
+    <string name="search_icon">Search icon</string>
 </resources>

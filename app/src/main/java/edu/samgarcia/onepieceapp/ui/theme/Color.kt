@@ -18,20 +18,25 @@ val Blue200 = Color(0xFF90CAF9)
 val Blue500 = Color(0xFF2196F3)
 val Blue700 = Color(0xFF1976D2)
 
+val OffWhite = Color(0xDEFFFFFF)
+val LighterGrey = Color(0xFFF1F1F1)
 val LightGrey = Color(0xFFBDBDBD)
 val Grey = Color(0xFF707070)
-val DarkGrey = Color(0xFF121212)
-
-val OffWhite = Color(0xDEFFFFFF)
+val DarkGrey = Color(0xFF2A2A2A)
+val DarkerGrey = Color(0xFF121212)
 
 val Colors.onboardingScreenBackgroundColor
     @Composable
-    get() = if(isLight) OffWhite else DarkGrey
+    get() = if (isLight) OffWhite else DarkerGrey
 
-val Colors.titleColor
-    @Composable
-    get() = if (isLight) DarkGrey else OffWhite
-
-val Colors.descriptionColor
+val Colors.onboardingScreenDescriptionColor
     @Composable
     get() = if (isLight) Grey else LightGrey
+
+val Colors.homeTopBarBackgroundColor
+    @Composable
+    get() = if (isLight) Orange500 else Color.Black
+
+val Colors.homeTopBarTextColor
+    @Composable
+    get() = if (isLight) Color.White else OffWhite
