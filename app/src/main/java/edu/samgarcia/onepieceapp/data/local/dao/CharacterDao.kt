@@ -17,7 +17,7 @@ interface CharacterDao {
     fun getSelectedCharacter(characterId: Int): OPCharacter
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addCharacters(character: List<OPCharacter>)
+    suspend fun addCharacters(characters: List<OPCharacter>)
 
     @Query("DELETE FROM $CHARACTER_TABLE_NAME")
     suspend fun deleteAllCharacters()
