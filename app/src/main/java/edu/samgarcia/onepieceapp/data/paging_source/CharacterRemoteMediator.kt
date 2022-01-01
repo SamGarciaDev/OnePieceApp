@@ -9,6 +9,8 @@ import edu.samgarcia.onepieceapp.data.local.OnePieceDatabase
 import edu.samgarcia.onepieceapp.data.remote.OnePieceApi
 import edu.samgarcia.onepieceapp.domain.model.CharacterRemoteKeys
 import edu.samgarcia.onepieceapp.domain.model.OPCharacter
+import retrofit2.HttpException
+import java.io.IOException
 import javax.inject.Inject
 
 @ExperimentalPagingApi
@@ -69,7 +71,9 @@ class CharacterRemoteMediator @Inject constructor(
             }
 
             MediatorResult.Success(endOfPaginationReached = response.nextPage == null)
-        } catch(ex: Exception) {
+        } catch(ex: IOException) {
+            MediatorResult.Error(ex)
+        } catch(ex: HttpException) {
             MediatorResult.Error(ex)
         }
     }
