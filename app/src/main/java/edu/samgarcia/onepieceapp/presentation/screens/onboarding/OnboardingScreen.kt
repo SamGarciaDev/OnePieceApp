@@ -94,6 +94,7 @@ fun PagerScreen(onboardingPage: OnboardingPage) {
         Text(
             text = stringResource(onboardingPage.title),
             fontSize = MaterialTheme.typography.h4.fontSize,
+            color = colors.onBackground,
             fontWeight = MaterialTheme.typography.h4.fontWeight,
             modifier = Modifier.padding(bottom = S_PADDING)
         )

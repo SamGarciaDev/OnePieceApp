@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import edu.samgarcia.onepieceapp.utils.Constants.CHARACTER_TABLE_NAME
 
 @Entity(tableName = CHARACTER_TABLE_NAME)
-data class Character(
+data class OPCharacter(
     @PrimaryKey(autoGenerate = false)
     val id: Int,
     val name: String,
