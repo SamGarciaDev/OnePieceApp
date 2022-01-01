@@ -9,4 +9,6 @@ object Constants {
 
     const val PREFERENCES_NAME = "one_piece_preferences"
     const val PREFERENCES_KEY = "onboarding_completed"
+
+    const val BASE_URL = "http://10.0.2.2:8080"
 }
