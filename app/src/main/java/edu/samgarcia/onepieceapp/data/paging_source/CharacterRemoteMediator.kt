@@ -15,11 +15,11 @@ import javax.inject.Inject
 
 @ExperimentalPagingApi
 class CharacterRemoteMediator @Inject constructor(
-    private val onepieceApi: OnePieceApi,
-    private val onepieceDatabase: OnePieceDatabase
+    private val onePieceApi: OnePieceApi,
+    private val onePieceDatabase: OnePieceDatabase
 ): RemoteMediator<Int, OPCharacter>() {
-    private val characterDao = onepieceDatabase.characterDao()
-    private val characterRemoteKeysDao = onepieceDatabase.characterRemoteKeysDao()
+    private val characterDao = onePieceDatabase.characterDao()
+    private val characterRemoteKeysDao = onePieceDatabase.characterRemoteKeysDao()
 
     override suspend fun load(
         loadType: LoadType,
@@ -48,10 +48,10 @@ class CharacterRemoteMediator @Inject constructor(
                 }
             }
 
-            val response = onepieceApi.getAllCharacters(page = page)
+            val response = onePieceApi.getAllCharacters(page = page)
 
             if (response.characters.isNotEmpty()) {
-                onepieceDatabase.withTransaction {
+                onePieceDatabase.withTransaction {
                     if (loadType == LoadType.REFRESH) {
                         characterDao.deleteAllCharacters()
                         characterRemoteKeysDao.deleteAllRemoteKeys()
