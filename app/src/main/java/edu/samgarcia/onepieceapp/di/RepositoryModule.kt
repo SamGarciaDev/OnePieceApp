@@ -10,6 +10,7 @@ import edu.samgarcia.onepieceapp.data.repository.DataStoreOperationsImpl
 import edu.samgarcia.onepieceapp.data.repository.Repository
 import edu.samgarcia.onepieceapp.domain.repository.DataStoreOperations
 import edu.samgarcia.onepieceapp.domain.use_cases.UseCases
+import edu.samgarcia.onepieceapp.domain.use_cases.get_all_characters.GetAllCharactersUseCase
 import edu.samgarcia.onepieceapp.domain.use_cases.read_onboarding.ReadOnboardingUseCase
 import edu.samgarcia.onepieceapp.domain.use_cases.save_onboarding.SaveOnboardingUseCase
 import javax.inject.Singleton
@@ -28,6 +29,10 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideUseCases(repository: Repository) : UseCases {
-        return UseCases(repository)
+        return UseCases(
+            saveOnboardingUseCase = SaveOnboardingUseCase(repository),
+            readOnboardingUseCase = ReadOnboardingUseCase(repository),
+            getAllCharactersUseCase = GetAllCharactersUseCase(repository)
+        )
     }
 }
