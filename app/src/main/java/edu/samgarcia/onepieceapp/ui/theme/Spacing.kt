@@ -7,3 +7,4 @@ val L_PADDING = 48.dp
 val M_PADDING = 32.dp
 val S_PADDING = 24.dp
 val XS_PADDING = 16.dp
+val XXS_PADDING = 6.dp

@@ -25,6 +25,8 @@ val Grey = Color(0xFF707070)
 val DarkGrey = Color(0xFF2A2A2A)
 val DarkerGrey = Color(0xFF121212)
 
+val StarColor = Color(0xFFFFC94D)
+
 val Colors.onboardingScreenBackgroundColor
     @Composable
     get() = if (isLight) OffWhite else DarkerGrey
