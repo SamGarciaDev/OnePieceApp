@@ -1,17 +1,15 @@
 package edu.samgarcia.onepieceapp.presentation.screens.home
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
-import edu.samgarcia.onepieceapp.presentation.components.RatingWidget
-import edu.samgarcia.onepieceapp.ui.theme.L_PADDING
+import edu.samgarcia.onepieceapp.presentation.common.ListContent
 
 @Composable
 fun HomeScreen(
+    navHostController: NavHostController,
     homeViewModel: HomeViewModel = hiltViewModel()
 ) {
     val allCharacters = homeViewModel.getAllCharacters.collectAsLazyPagingItems()
@@ -19,8 +17,9 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             HomeTopBar(onSearchClicked = { })
+        },
+        content = {
+            ListContent(allCharacters, navHostController = navHostController)
         }
-    ) {
-        RatingWidget(modifier = Modifier.padding(all = L_PADDING), rating = 3.6)
-    }
+    )
 }
