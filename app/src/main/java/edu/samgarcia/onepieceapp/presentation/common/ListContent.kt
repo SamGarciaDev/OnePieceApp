@@ -1,8 +1,10 @@
 package edu.samgarcia.onepieceapp.presentation.common
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.MaterialTheme
@@ -21,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.items
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import edu.samgarcia.onepieceapp.R
@@ -36,18 +39,20 @@ fun ListContent(
     characters: LazyPagingItems<OPCharacter>,
     navHostController: NavHostController
 ) {
-    CharacterItem(
-        character = OPCharacter(
-            id = 1,
-            name = "What",
-            img = "",
-            about = "Some random text...",
-            rating = 3.6,
-            devilFruits = listOf("Waht", "Ayo0"),
-            family = listOf("What")
-        ),
-        navHostController = rememberNavController()
-    )
+    Log.d("ListContent", characters.loadState.toString())
+    LazyColumn(
+        contentPadding = PaddingValues(all = S_PADDING),
+        verticalArrangement = Arrangement.spacedBy(S_PADDING)
+    ) {
+        items(
+            items = characters,
+            key = { character -> character.id }
+        ) { character ->
+            character?.let {
+                CharacterItem(character = it, navHostController = navHostController)
+            }
+        }
+    }
 }
 
 @ExperimentalCoilApi
@@ -68,7 +73,7 @@ fun CharacterItem(
                 navHostController.navigate(Screen.Details.passCharacterId(characterId = character.id))
             }
     ) {
-        Surface(shape = RoundedCornerShape(size = L_PADDING)) {
+        Surface(shape = RoundedCornerShape(size = S_PADDING)) {
             Image(
                 modifier = Modifier.fillMaxSize(),
                 painter = painter,
@@ -83,14 +88,14 @@ fun CharacterItem(
                     .align(Alignment.BottomStart),
                 color = Color.Black.copy(alpha = ContentAlpha.medium),
                 shape = RoundedCornerShape(
-                    bottomStart = L_PADDING,
-                    bottomEnd = L_PADDING
+                    bottomStart = S_PADDING,
+                    bottomEnd = S_PADDING
                 )
             ) {
                 Column (
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(all = M_PADDING)
+                        .padding(all = S_PADDING)
                 ) {
                     Text(
                         text = character.name,
@@ -119,7 +124,7 @@ fun CharacterItem(
                         )
 
                         Text(
-                            text = "(${character.rating})",
+                            text = String.format("(%.1f)", character.rating),
                             textAlign = TextAlign.Center,
                             color = Color.White.copy(alpha = ContentAlpha.medium)
                         )

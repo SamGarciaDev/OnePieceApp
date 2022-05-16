@@ -160,10 +160,16 @@ fun calculateStars(rating: Double): Map<String, Int> {
     var emptyStars by remember { mutableStateOf(0) }
 
     LaunchedEffect(key1 = rating) {
-        val (unit, decimal) = rating
+        val unit = rating
             .toString()
-            .split(".")
-            .map { it.toInt() }
+            .split(".")[0]
+            .toInt()
+
+        val decimal = rating
+            .toString()
+            .split(".")[1]
+            .substring(0, 1)
+            .toInt()
 
         if (unit in 0..5 && decimal in 0..9) {
             filledStars = unit

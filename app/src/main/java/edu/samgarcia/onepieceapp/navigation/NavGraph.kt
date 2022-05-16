@@ -7,12 +7,14 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import coil.annotation.ExperimentalCoilApi
 import com.google.accompanist.pager.ExperimentalPagerApi
 import edu.samgarcia.onepieceapp.presentation.screens.home.HomeScreen
 import edu.samgarcia.onepieceapp.presentation.screens.onboarding.OnboardingScreen
 import edu.samgarcia.onepieceapp.presentation.screens.splash.SplashScreen
 import edu.samgarcia.onepieceapp.utils.Constants.DETAILS_ARGUMENT_KEY
 
+@ExperimentalCoilApi
 @ExperimentalAnimationApi
 @ExperimentalPagerApi
 @Composable
