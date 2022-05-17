@@ -2,6 +2,7 @@ package edu.samgarcia.onepieceapp.presentation.common
 
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -20,6 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.LazyPagingItems
@@ -39,10 +41,9 @@ fun ListContent(
     characters: LazyPagingItems<OPCharacter>,
     navHostController: NavHostController
 ) {
-    Log.d("ListContent", characters.loadState.toString())
     LazyColumn(
-        contentPadding = PaddingValues(all = S_PADDING),
-        verticalArrangement = Arrangement.spacedBy(S_PADDING)
+        contentPadding = PaddingValues(all = XS_PADDING),
+        verticalArrangement = Arrangement.spacedBy(XS_PADDING)
     ) {
         items(
             items = characters,
@@ -83,7 +84,6 @@ fun CharacterItem(
 
             Surface(
                 modifier = Modifier
-                    .fillMaxHeight(0.4f)
                     .fillMaxWidth()
                     .align(Alignment.BottomStart),
                 color = Color.Black.copy(alpha = ContentAlpha.medium),
@@ -94,7 +94,7 @@ fun CharacterItem(
             ) {
                 Column (
                     modifier = Modifier
-                        .fillMaxSize()
+                        .fillMaxWidth()
                         .padding(all = S_PADDING)
                 ) {
                     Text(
@@ -103,7 +103,8 @@ fun CharacterItem(
                         fontSize = MaterialTheme.typography.h5.fontSize,
                         fontWeight = FontWeight.Bold,
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.padding(bottom = XS_PADDING)
                     )
 
                     Text(
@@ -115,7 +116,7 @@ fun CharacterItem(
                     )
 
                     Row(
-                        modifier = Modifier.padding(top = S_PADDING),
+                        modifier = Modifier.padding(top = XS_PADDING),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         RatingWidget(
