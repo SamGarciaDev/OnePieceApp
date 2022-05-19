@@ -21,6 +21,20 @@ class CharacterRemoteMediator @Inject constructor(
     private val characterDao = onePieceDatabase.characterDao()
     private val characterRemoteKeysDao = onePieceDatabase.characterRemoteKeysDao()
 
+    override suspend fun initialize(): InitializeAction {
+        val currentTime = System.currentTimeMillis()
+        val lastUpdated = characterRemoteKeysDao.getRemoteKeys(characterId = 1)?.lastUpdated ?: 0L
+        val cacheTimeout = 5
+
+        val diffInMinutes = (currentTime - lastUpdated) / 1000 / 60
+
+        return if (diffInMinutes.toInt() <= cacheTimeout) {
+            InitializeAction.SKIP_INITIAL_REFRESH
+        } else {
+            InitializeAction.LAUNCH_INITIAL_REFRESH
+        }
+    }
+
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, OPCharacter>
@@ -61,7 +75,8 @@ class CharacterRemoteMediator @Inject constructor(
                         CharacterRemoteKeys(
                             id = character.id,
                             prevPage = response.prevPage,
-                            nextPage = response.nextPage
+                            nextPage = response.nextPage,
+                            lastUpdated = response.lastUpdated
                         )
                     }
 
