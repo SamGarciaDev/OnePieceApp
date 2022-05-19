@@ -1,8 +1,6 @@
 package edu.samgarcia.onepieceapp.presentation.common
 
-import android.util.Log
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,9 +19,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
 import coil.annotation.ExperimentalCoilApi
@@ -32,7 +30,11 @@ import edu.samgarcia.onepieceapp.R
 import edu.samgarcia.onepieceapp.domain.model.OPCharacter
 import edu.samgarcia.onepieceapp.navigation.Screen
 import edu.samgarcia.onepieceapp.presentation.components.RatingWidget
-import edu.samgarcia.onepieceapp.ui.theme.*
+import edu.samgarcia.onepieceapp.presentation.components.ShimmerEffect
+import edu.samgarcia.onepieceapp.ui.theme.CHARACTER_ITEM_HEIGHT
+import edu.samgarcia.onepieceapp.ui.theme.S_PADDING
+import edu.samgarcia.onepieceapp.ui.theme.XS_PADDING
+import edu.samgarcia.onepieceapp.ui.theme.homeTopBarTextColor
 import edu.samgarcia.onepieceapp.utils.Constants.BASE_URL
 
 @ExperimentalCoilApi
@@ -41,17 +43,46 @@ fun ListContent(
     characters: LazyPagingItems<OPCharacter>,
     navHostController: NavHostController
 ) {
-    LazyColumn(
-        contentPadding = PaddingValues(all = XS_PADDING),
-        verticalArrangement = Arrangement.spacedBy(XS_PADDING)
-    ) {
-        items(
-            items = characters,
-            key = { character -> character.id }
-        ) { character ->
-            character?.let {
-                CharacterItem(character = it, navHostController = navHostController)
+    val result = handlePagingResult(characters = characters)
+
+    if (result) {
+        LazyColumn(
+            contentPadding = PaddingValues(all = XS_PADDING),
+            verticalArrangement = Arrangement.spacedBy(XS_PADDING)
+        ) {
+            items(
+                items = characters,
+                key = { character -> character.id }
+            ) { character ->
+                character?.let {
+                    CharacterItem(character = it, navHostController = navHostController)
+                }
             }
+        }
+    }
+}
+
+@Composable
+fun handlePagingResult(
+    characters: LazyPagingItems<OPCharacter>
+): Boolean {
+    characters.apply {
+        val error = when {
+            loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+            loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+            loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+            else -> null
+        }
+
+        return when {
+            loadState.refresh is LoadState.Loading -> {
+                ShimmerEffect()
+                false
+            }
+            error != null -> {
+                false
+            }
+            else -> true
         }
     }
 }
