@@ -39,10 +39,10 @@ val Colors.onboardingScreenDescriptionColor
     @Composable
     get() = if (isLight) Grey else LightGrey
 
-val Colors.homeTopBarBackgroundColor
+val Colors.topBarBackgroundColor
     @Composable
     get() = if (isLight) Orange500 else Color.Black
 
-val Colors.homeTopBarTextColor
+val Colors.topBarContentColor
     @Composable
     get() = if (isLight) Color.White else OffWhite

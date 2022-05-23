@@ -34,7 +34,7 @@ import edu.samgarcia.onepieceapp.presentation.components.ShimmerEffect
 import edu.samgarcia.onepieceapp.ui.theme.CHARACTER_ITEM_HEIGHT
 import edu.samgarcia.onepieceapp.ui.theme.S_PADDING
 import edu.samgarcia.onepieceapp.ui.theme.XS_PADDING
-import edu.samgarcia.onepieceapp.ui.theme.homeTopBarTextColor
+import edu.samgarcia.onepieceapp.ui.theme.topBarContentColor
 import edu.samgarcia.onepieceapp.utils.Constants.BASE_URL
 
 @ExperimentalCoilApi
@@ -131,7 +131,7 @@ fun CharacterItem(
                 ) {
                     Text(
                         text = character.name,
-                        color = MaterialTheme.colors.homeTopBarTextColor,
+                        color = MaterialTheme.colors.topBarContentColor,
                         fontSize = MaterialTheme.typography.h5.fontSize,
                         fontWeight = FontWeight.Bold,
                         maxLines = 1,
