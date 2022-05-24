@@ -80,7 +80,7 @@ fun handlePagingResult(
                 false
             }
             error != null -> {
-                EmptyScreen(error = error)
+                EmptyScreen(error = error, characters = characters)
                 false
             }
             characters.itemCount < 1 -> {

@@ -4,6 +4,8 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -20,14 +22,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import edu.samgarcia.onepieceapp.R
+import edu.samgarcia.onepieceapp.domain.model.OPCharacter
 import edu.samgarcia.onepieceapp.ui.theme.NETWORK_ERROR_ICON_HEIGHT
 import edu.samgarcia.onepieceapp.ui.theme.XXS_PADDING
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 
 @Composable
-fun EmptyScreen(error: LoadState.Error? = null) {
+fun EmptyScreen(
+    error: LoadState.Error? = null,
+    characters: LazyPagingItems<OPCharacter>? = null
+) {
     var message by remember {
         mutableStateOf("Find your favorite character!")
     }
@@ -52,31 +61,46 @@ fun EmptyScreen(error: LoadState.Error? = null) {
         startAnimation = true
     }
 
+    var isRefreshing by remember {
+        mutableStateOf(false)
+    }
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+    SwipeRefresh(
+        swipeEnabled = error != null,
+        state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
+        onRefresh = {
+            isRefreshing = true
+            characters?.refresh()
+            isRefreshing = false
+        }
     ) {
-        Icon(
+        Column(
             modifier = Modifier
-                .alpha(alphaAnim)
-                .size(NETWORK_ERROR_ICON_HEIGHT),
-            painter = painterResource(id = icon),
-            contentDescription = stringResource(R.string.network_error_icon),
-            tint = if(isSystemInDarkTheme()) LightGray else DarkGray
-        )
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                modifier = Modifier
+                    .alpha(alphaAnim)
+                    .size(NETWORK_ERROR_ICON_HEIGHT),
+                painter = painterResource(id = icon),
+                contentDescription = stringResource(R.string.network_error_icon),
+                tint = if(isSystemInDarkTheme()) LightGray else DarkGray
+            )
 
-        Spacer(modifier = Modifier.padding(XXS_PADDING))
+            Spacer(modifier = Modifier.padding(XXS_PADDING))
 
-        Text(
-            modifier = Modifier.alpha(alphaAnim),
-            text = message,
-            color = if(isSystemInDarkTheme()) LightGray else DarkGray,
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Medium,
-            fontSize = MaterialTheme.typography.subtitle1.fontSize
-        )
+            Text(
+                modifier = Modifier.alpha(alphaAnim),
+                text = message,
+                color = if(isSystemInDarkTheme()) LightGray else DarkGray,
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Medium,
+                fontSize = MaterialTheme.typography.subtitle1.fontSize
+            )
+        }
     }
 }
 
