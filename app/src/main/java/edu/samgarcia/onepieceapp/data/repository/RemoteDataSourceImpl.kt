@@ -6,6 +6,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import edu.samgarcia.onepieceapp.data.local.OnePieceDatabase
 import edu.samgarcia.onepieceapp.data.paging_source.CharacterRemoteMediator
+import edu.samgarcia.onepieceapp.data.paging_source.SearchCharactersSource
 import edu.samgarcia.onepieceapp.data.remote.OnePieceApi
 import edu.samgarcia.onepieceapp.domain.model.OPCharacter
 import edu.samgarcia.onepieceapp.domain.repository.RemoteDataSource
@@ -32,7 +33,12 @@ class RemoteDataSourceImpl(
         ).flow
     }
 
-    override fun searchCharacters(): Flow<PagingData<OPCharacter>> {
-        TODO("Not yet implemented")
+    override fun searchCharacters(query: String): Flow<PagingData<OPCharacter>> {
+        return Pager(
+            config = PagingConfig(pageSize = CHARACTERS_PER_PAGE),
+            pagingSourceFactory = {
+                SearchCharactersSource(onePieceApi = onePieceApi, query = query)
+            }
+        ).flow
     }
 }

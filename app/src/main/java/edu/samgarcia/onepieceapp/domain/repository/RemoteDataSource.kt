@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface RemoteDataSource {
     fun getAllCharacters(): Flow<PagingData<OPCharacter>>
-    fun searchCharacters(): Flow<PagingData<OPCharacter>>
+    fun searchCharacters(query: String): Flow<PagingData<OPCharacter>>
 }

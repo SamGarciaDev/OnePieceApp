@@ -13,6 +13,8 @@ import edu.samgarcia.onepieceapp.domain.use_cases.UseCases
 import edu.samgarcia.onepieceapp.domain.use_cases.get_all_characters.GetAllCharactersUseCase
 import edu.samgarcia.onepieceapp.domain.use_cases.read_onboarding.ReadOnboardingUseCase
 import edu.samgarcia.onepieceapp.domain.use_cases.save_onboarding.SaveOnboardingUseCase
+import edu.samgarcia.onepieceapp.domain.use_cases.search_characters.SearchCharactersUseCase
+import edu.samgarcia.onepieceapp.navigation.Screen
 import javax.inject.Singleton
 
 @Module
@@ -32,7 +34,8 @@ object RepositoryModule {
         return UseCases(
             saveOnboardingUseCase = SaveOnboardingUseCase(repository),
             readOnboardingUseCase = ReadOnboardingUseCase(repository),
-            getAllCharactersUseCase = GetAllCharactersUseCase(repository)
+            getAllCharactersUseCase = GetAllCharactersUseCase(repository),
+            searchCharactersUseCase = SearchCharactersUseCase(repository)
         )
     }
 }

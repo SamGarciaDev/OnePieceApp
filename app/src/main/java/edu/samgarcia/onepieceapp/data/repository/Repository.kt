@@ -22,4 +22,8 @@ class Repository @Inject constructor(
     fun getAllCharacters(): Flow<PagingData<OPCharacter>> {
         return remote.getAllCharacters()
     }
+
+    fun searchHeroes(query: String): Flow<PagingData<OPCharacter>> {
+        return remote.searchCharacters(query)
+    }
 }
