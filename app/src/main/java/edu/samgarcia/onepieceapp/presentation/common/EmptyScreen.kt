@@ -27,13 +27,18 @@ import java.net.ConnectException
 import java.net.SocketTimeoutException
 
 @Composable
-fun EmptyScreen(error: LoadState.Error) {
-    val message by remember {
-        mutableStateOf(parseErrorMessage(error = error))
+fun EmptyScreen(error: LoadState.Error? = null) {
+    var message by remember {
+        mutableStateOf("Find your favorite character!")
     }
 
-    val icon by remember {
-        mutableStateOf(R.drawable.ic_network_error)
+    var icon by remember {
+        mutableStateOf(R.drawable.ic_search_document)
+    }
+
+    if (error != null) {
+        message = parseErrorMessage(error)
+        icon = R.drawable.ic_network_error
     }
 
     var startAnimation by remember { mutableStateOf(false) }

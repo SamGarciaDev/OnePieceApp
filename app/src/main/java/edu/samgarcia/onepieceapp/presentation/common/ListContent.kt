@@ -83,6 +83,10 @@ fun handlePagingResult(
                 EmptyScreen(error = error)
                 false
             }
+            characters.itemCount < 1 -> {
+                EmptyScreen()
+                false
+            }
             else -> true
         }
     }
