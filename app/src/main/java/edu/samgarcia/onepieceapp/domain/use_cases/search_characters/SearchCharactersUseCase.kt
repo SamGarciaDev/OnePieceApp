@@ -9,6 +9,6 @@ class SearchCharactersUseCase(
     private val repository: Repository
 ) {
     operator fun invoke(query: String): Flow<PagingData<OPCharacter>> {
-        return repository.searchHeroes(query)
+        return repository.searchCharacters(query)
     }
 }

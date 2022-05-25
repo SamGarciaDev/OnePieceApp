@@ -3,11 +3,13 @@ package edu.samgarcia.onepieceapp.data.repository
 import androidx.paging.PagingData
 import edu.samgarcia.onepieceapp.domain.model.OPCharacter
 import edu.samgarcia.onepieceapp.domain.repository.DataStoreOperations
+import edu.samgarcia.onepieceapp.domain.repository.LocalDataSource
 import edu.samgarcia.onepieceapp.domain.repository.RemoteDataSource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class Repository @Inject constructor(
+    private val local: LocalDataSource,
     private val remote: RemoteDataSource,
     private val dataStore: DataStoreOperations
 ) {
@@ -23,7 +25,11 @@ class Repository @Inject constructor(
         return remote.getAllCharacters()
     }
 
-    fun searchHeroes(query: String): Flow<PagingData<OPCharacter>> {
+    fun searchCharacters(query: String): Flow<PagingData<OPCharacter>> {
         return remote.searchCharacters(query)
+    }
+
+    suspend fun getSelectedCharacter(id: Int): OPCharacter {
+        return local.getSelectedCharacter(id)
     }
 }

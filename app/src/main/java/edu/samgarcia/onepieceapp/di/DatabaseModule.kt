@@ -8,6 +8,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import edu.samgarcia.onepieceapp.data.local.OnePieceDatabase
+import edu.samgarcia.onepieceapp.data.repository.LocalDataSourceImpl
+import edu.samgarcia.onepieceapp.domain.repository.LocalDataSource
 import edu.samgarcia.onepieceapp.utils.Constants.ONE_PIECE_DATABASE_NAME
 import javax.inject.Singleton
 
@@ -22,5 +24,11 @@ object DatabaseModule {
             OnePieceDatabase::class.java,
             ONE_PIECE_DATABASE_NAME
         ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocalDataSource(onePieceDatabase: OnePieceDatabase): LocalDataSource {
+        return LocalDataSourceImpl(onePieceDatabase)
     }
 }
