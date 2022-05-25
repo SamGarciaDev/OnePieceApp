@@ -182,6 +182,8 @@ fun CharacterItemPreview() {
             name = "What",
             img = "",
             about = "Some random text...",
+            origin = "Ayo",
+            bounty = 1,
             rating = 3.6,
             devilFruits = listOf("Waht", "Ayo0"),
             family = listOf("What")
