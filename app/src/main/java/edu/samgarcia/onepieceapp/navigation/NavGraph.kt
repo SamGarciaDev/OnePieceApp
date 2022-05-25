@@ -9,7 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import coil.annotation.ExperimentalCoilApi
 import com.google.accompanist.pager.ExperimentalPagerApi
-import edu.samgarcia.onepieceapp.presentation.screens.home.DetailsScreen
+import edu.samgarcia.onepieceapp.presentation.screens.details.DetailsScreen
 import edu.samgarcia.onepieceapp.presentation.screens.home.HomeScreen
 import edu.samgarcia.onepieceapp.presentation.screens.onboarding.OnboardingScreen
 import edu.samgarcia.onepieceapp.presentation.screens.search.SearchScreen
