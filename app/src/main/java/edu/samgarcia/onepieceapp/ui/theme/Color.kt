@@ -46,3 +46,7 @@ val Colors.topBarBackgroundColor
 val Colors.topBarContentColor
     @Composable
     get() = if (isLight) Color.White else OffWhite
+
+val Colors.titleColor
+    @Composable
+    get() = if (isLight) DarkGrey else LightGrey
