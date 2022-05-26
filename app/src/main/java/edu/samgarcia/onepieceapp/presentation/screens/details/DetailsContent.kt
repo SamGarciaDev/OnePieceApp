@@ -1,5 +1,6 @@
 package edu.samgarcia.onepieceapp.presentation.screens.details
 
+import android.graphics.Color.parseColor
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -8,8 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,20 +22,33 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import edu.samgarcia.onepieceapp.R
 import edu.samgarcia.onepieceapp.domain.model.OPCharacter
 import edu.samgarcia.onepieceapp.presentation.components.BulletList
 import edu.samgarcia.onepieceapp.presentation.components.InfoBox
 import edu.samgarcia.onepieceapp.ui.theme.*
 import edu.samgarcia.onepieceapp.utils.Constants.BASE_URL
+import edu.samgarcia.onepieceapp.utils.PaletteGenerator
 
 @ExperimentalCoilApi
 @ExperimentalMaterialApi
 @Composable
 fun DetailsContent(
     navHostController: NavHostController,
-    selectedCharacter: OPCharacter?
+    selectedCharacter: OPCharacter?,
+    colors: Map<String, String>
 ) {
+    var vibrant by remember { mutableStateOf("#000000") }
+    var darkVibrant by remember { mutableStateOf("#000000") }
+    var onDarkVibrant by remember { mutableStateOf("#FFFFFF") }
+
+    LaunchedEffect(key1 = selectedCharacter) {
+        vibrant = colors[PaletteGenerator.VIBRANT]!!
+        darkVibrant = colors[PaletteGenerator.DARK_VIBRANT]!!
+        onDarkVibrant = colors[PaletteGenerator.ON_DARK_VIBRANT]!!
+    }
+
     val scaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = rememberBottomSheetState(
             initialValue = BottomSheetValue.Expanded
@@ -52,13 +65,21 @@ fun DetailsContent(
         scaffoldState = scaffoldState,
         sheetPeekHeight = MIN_SHEET_COLLAPSED_HEIGHT,
         sheetContent = {
-            selectedCharacter?.let { BottomSheetContent(selectedCharacter = it) }
+            selectedCharacter?.let {
+                BottomSheetContent(
+                    selectedCharacter = it,
+                    infoBoxIconColor = Color(parseColor(vibrant)),
+                    sheetBackgroundColor = Color(parseColor(darkVibrant)),
+                    contentColor = Color(parseColor(onDarkVibrant))
+                )
+            }
         },
         content = {
-            selectedCharacter?.let { it1 ->
+            selectedCharacter?.let {
                 BackgroundContent(
-                    characterImage = it1.img,
+                    characterImage = it.img,
                     imageFraction = currentSheetFraction,
+                    backgroundColor = Color(parseColor(darkVibrant)),
                     onCloseClicked = {
                         navHostController.popBackStack()
                     }
