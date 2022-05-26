@@ -9,9 +9,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
@@ -21,6 +27,7 @@ import edu.samgarcia.onepieceapp.ui.theme.TOP_APP_BAR_HEIGHT
 import edu.samgarcia.onepieceapp.ui.theme.topBarBackgroundColor
 import edu.samgarcia.onepieceapp.ui.theme.topBarContentColor
 
+@ExperimentalComposeUiApi
 @Composable
 fun SearchTopBar(
     text: String,
@@ -36,6 +43,7 @@ fun SearchTopBar(
     )
 }
 
+@ExperimentalComposeUiApi
 @Composable
 fun SearchWidget(
     text: String,
@@ -50,8 +58,17 @@ fun SearchWidget(
         elevation = AppBarDefaults.TopAppBarElevation,
         color = MaterialTheme.colors.topBarBackgroundColor
     ) {
+        val focusRequester = remember { FocusRequester() }
+        val keyboardController = LocalSoftwareKeyboardController.current
+        
+        LaunchedEffect(Unit) {
+            focusRequester.requestFocus()
+        }
+        
         TextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .focusRequester(focusRequester),
             value = text,
             onValueChange = { onTextChange(it) },
             placeholder = {
@@ -77,7 +94,6 @@ fun SearchWidget(
                 }
             },
             trailingIcon = {
-
                 IconButton(
                     onClick = {
                         if (text.isNotEmpty()) {
@@ -99,6 +115,7 @@ fun SearchWidget(
             ),
             keyboardActions = KeyboardActions(
                 onSearch = {
+                    keyboardController?.hide()
                     onSearchClicked(text)
                 }
             ),
@@ -111,6 +128,7 @@ fun SearchWidget(
     }
 }
 
+@ExperimentalComposeUiApi
 @Preview
 @Composable
 fun SearchWidgetPreview() {
