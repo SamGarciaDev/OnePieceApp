@@ -1,5 +1,6 @@
 package edu.samgarcia.onepieceapp.presentation.components
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -31,13 +32,17 @@ fun BulletList(
         
         Spacer(modifier = Modifier.padding(bottom = XS_PADDING))
 
+        Log.d("BulletList", items.size.toString())
+
         items.forEach { item ->
-            Text(
-                modifier = Modifier.alpha(ContentAlpha.medium),
-                text = "• $item",
-                color = textColor,
-                fontSize = MaterialTheme.typography.body1.fontSize
-            )
+            if (item.isNotBlank()) {
+                Text(
+                    modifier = Modifier.alpha(ContentAlpha.medium),
+                    text = "• $item",
+                    color = textColor,
+                    fontSize = MaterialTheme.typography.body1.fontSize
+                )
+            }
         }
     }
 }

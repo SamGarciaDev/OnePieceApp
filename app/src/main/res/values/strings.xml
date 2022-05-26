@@ -16,4 +16,7 @@
     <string name="network_error_icon">Network error icon</string>
     <string name="close_icon">Close icon</string>
     <string name="info_icon">Info icon</string>
+    <string name="bounty">Bounty</string>
+    <string name="origin">Origin</string>
+    <string name="about">About</string>
 </resources>

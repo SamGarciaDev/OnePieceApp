@@ -1,6 +1,7 @@
 package edu.samgarcia.onepieceapp.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -16,6 +17,7 @@ import edu.samgarcia.onepieceapp.presentation.screens.search.SearchScreen
 import edu.samgarcia.onepieceapp.presentation.screens.splash.SplashScreen
 import edu.samgarcia.onepieceapp.utils.Constants.DETAILS_ARGUMENT_KEY
 
+@ExperimentalMaterialApi
 @ExperimentalCoilApi
 @ExperimentalAnimationApi
 @ExperimentalPagerApi

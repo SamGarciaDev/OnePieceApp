@@ -5,7 +5,7 @@ sealed class Screen(val route: String) {
     object Onboarding: Screen("onboarding_screen")
     object Home: Screen("home_screen")
     object Search: Screen("search_screen")
-    object Details: Screen("details_screen/{heroId}") {
+    object Details: Screen("details_screen/{characterId}") {
         fun passCharacterId(characterId: Int): String {
             return "details_screen/$characterId"
         }

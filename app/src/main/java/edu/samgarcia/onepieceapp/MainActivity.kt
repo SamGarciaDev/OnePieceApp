@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
@@ -12,13 +13,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import edu.samgarcia.onepieceapp.navigation.SetupNavGraph
 import edu.samgarcia.onepieceapp.ui.theme.OnePieceAppTheme
 
+@ExperimentalCoilApi
+@ExperimentalAnimationApi
+@ExperimentalPagerApi
+@ExperimentalMaterialApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private lateinit var navController: NavHostController
-    
-    @ExperimentalCoilApi
-    @ExperimentalAnimationApi
-    @ExperimentalPagerApi
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
