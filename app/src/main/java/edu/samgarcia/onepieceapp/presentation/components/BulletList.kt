@@ -18,11 +18,12 @@ import edu.samgarcia.onepieceapp.ui.theme.titleColor
 
 @Composable
 fun BulletList(
+    modifier: Modifier = Modifier,
     title: String,
     items: List<String>,
     textColor: Color
 ) {
-    Column {
+    Column(modifier = modifier) {
         Text(
             text = title,
             color = textColor,

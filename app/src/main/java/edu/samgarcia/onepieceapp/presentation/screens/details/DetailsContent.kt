@@ -1,23 +1,31 @@
 package edu.samgarcia.onepieceapp.presentation.screens.details
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
 import edu.samgarcia.onepieceapp.R
 import edu.samgarcia.onepieceapp.domain.model.OPCharacter
 import edu.samgarcia.onepieceapp.presentation.components.BulletList
 import edu.samgarcia.onepieceapp.presentation.components.InfoBox
 import edu.samgarcia.onepieceapp.ui.theme.*
+import edu.samgarcia.onepieceapp.utils.Constants.BASE_URL
 
+@ExperimentalCoilApi
 @ExperimentalMaterialApi
 @Composable
 fun DetailsContent(
@@ -36,7 +44,16 @@ fun DetailsContent(
         sheetContent = {
             selectedCharacter?.let { BottomSheetContent(selectedCharacter = it) }
         },
-        content = {}
+        content = {
+            selectedCharacter?.let { it1 ->
+                BackgroundContent(
+                    characterImage = it1.img,
+                    onCloseClicked = {
+                        navHostController.popBackStack()
+                    }
+                )
+            }
+        }
     )
 }
 
@@ -80,6 +97,7 @@ fun BottomSheetContent(
                 smallText = stringResource(R.string.bounty),
                 textColor = contentColor
             )
+
             InfoBox(
                 icon = painterResource(id = R.drawable.ic_world),
                 iconColor = infoBoxIconColor,
@@ -112,16 +130,67 @@ fun BottomSheetContent(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             BulletList(
+                modifier = Modifier.weight(1f),
                 title = "Devil Fruits",
                 items = selectedCharacter.devilFruits,
                 textColor = contentColor
             )
 
+            Spacer(modifier = Modifier.padding(XS_PADDING))
+
             BulletList(
+                modifier = Modifier.weight(1f),
                 title = "Family",
                 items = selectedCharacter.family,
                 textColor = contentColor
             )
+        }
+    }
+}
+
+@ExperimentalCoilApi
+@Composable
+fun BackgroundContent(
+    characterImage: String,
+    imageFraction: Float = 1f,
+    backgroundColor: Color = MaterialTheme.colors.surface,
+    onCloseClicked: () -> Unit
+) {
+    val imageUrl = "$BASE_URL${characterImage}"
+    val painter = rememberImagePainter(imageUrl) {
+        error(R.drawable.ic_placeholder)
+    }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(backgroundColor)
+    ) {
+        Image(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(imageFraction)
+                .align(Alignment.TopStart),
+            painter = painter,
+            contentDescription = stringResource(id = R.string.character_image),
+            contentScale = ContentScale.Crop
+        )
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End
+        ) {
+            IconButton(
+                modifier = Modifier.padding(all = XS_PADDING),
+                onClick = { onCloseClicked() }
+            ) {
+                Icon(
+                    modifier = Modifier.size(INFO_ICON_SIZE),
+                    imageVector = Icons.Default.Close,
+                    contentDescription = stringResource(id = R.string.close_icon),
+                    tint = Color.White
+                )
+            }
         }
     }
 }
