@@ -23,6 +23,8 @@ fun BulletList(
     items: List<String>,
     textColor: Color
 ) {
+    var elements = 0
+
     Column(modifier = modifier) {
         Text(
             text = title,
@@ -37,6 +39,8 @@ fun BulletList(
 
         items.forEach { item ->
             if (item.isNotBlank()) {
+                elements++
+
                 Text(
                     modifier = Modifier.alpha(ContentAlpha.medium),
                     text = "• $item",
@@ -44,6 +48,15 @@ fun BulletList(
                     fontSize = MaterialTheme.typography.body1.fontSize
                 )
             }
+        }
+
+        if (elements == 0) {
+            Text(
+                modifier = Modifier.alpha(ContentAlpha.medium),
+                text = "There are no items...",
+                color = textColor,
+                fontSize = MaterialTheme.typography.body1.fontSize
+            )
         }
     }
 }
